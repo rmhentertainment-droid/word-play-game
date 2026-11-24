@@ -489,6 +489,21 @@ class WordPlayGame extends HTMLElement {
 
   emitAudio(playing) {
     this.dispatchEvent(new CustomEvent('game-audio', { detail: { playing }, bubbles: true, composed: true }));
+    if (playing) { this.hushPage(); this.lastHush = performance.now(); }
+  }
+
+  // Never let two songs play at once: pause any other audio or video on the page,
+  // including players inside other custom elements (like the site's floating music player).
+  hushPage() {
+    const media = [];
+    const walk = (root) => {
+      for (const el of root.querySelectorAll('*')) {
+        if (el instanceof HTMLMediaElement) media.push(el);
+        if (el.shadowRoot && el !== this) walk(el.shadowRoot);
+      }
+    };
+    walk(document);
+    for (const m of media) if (m !== this.audio && !m.paused) m.pause();
   }
 
   clock() {
@@ -504,6 +519,7 @@ class WordPlayGame extends HTMLElement {
     this.last = t;
     if (!g.paused) {
       g.elapsed += dt;
+      if (this.audio && t - (this.lastHush || 0) > 1500) { this.lastHush = t; this.hushPage(); }
       if (!g.resolving && (this.clock() >= g.duration || this.audio?.ended)) return this.win();
       if (!g.resolving && g.piece) {
         g.dropTimer += dt;

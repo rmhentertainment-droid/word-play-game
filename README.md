@@ -45,5 +45,7 @@ git subtree push --prefix=word-play-game game main
 
 ## Hooking it into Wix (phase 4)
 
+- Music player: the game pauses any other audio on the page (including inside the floating music player) when a case starts, and keeps it paused. `wix/the-word-play-page.js` is the Velo page code that also hides the player during a case; check the two element IDs at its top.
+
 - Velo sets attributes `member-id`, `logged-in` and `progress` (the member's saved progress as JSON).
 - The game fires `progress-change` (save `detail.progress` to the WordPlayProgress collection for members; guests are saved on the device automatically) and `game-audio` (`detail.playing`: hide or pause the site music player while true).
