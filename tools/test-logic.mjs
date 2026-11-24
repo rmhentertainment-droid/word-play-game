@@ -1,7 +1,9 @@
 // Quick checks of the word rules: node word-play-game/tools/test-logic.mjs
 import { readFileSync } from 'node:fs';
-globalThis.HTMLElement = class {}; globalThis.customElements = { get: () => true };
-const { findWords, settle } = await import('../word-play-game.js');
+import { runInThisContext } from 'node:vm';
+globalThis.HTMLElement = class {}; globalThis.window = globalThis;
+runInThisContext(readFileSync(new URL('../word-play-game.js', import.meta.url), 'utf8'));
+const { findWords, settle } = globalThis.WordPlayLogic;
 const dir = new URL('../data/', import.meta.url);
 const parse = (t) => t.split(/\r?\n/).map((l) => l.replace(/#.*/, '')).join(' ').toLowerCase().split(/[\s,]+/).filter((w) => /^[a-z]+$/.test(w));
 const blocked = new Set(parse(readFileSync(new URL('blocklist.txt', dir), 'utf8')));

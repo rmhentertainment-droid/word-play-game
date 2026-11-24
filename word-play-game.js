@@ -11,6 +11,11 @@
 //   progress-change  detail: { memberId, progress, result }  -> save to the member's account
 //   game-audio       detail: { playing: true|false }        -> hide/pause the site music player
 
+(() => {
+// Where this script was loaded from, so the data folder can be found next to it.
+const SCRIPT_URL = (typeof document !== 'undefined' && (document.currentScript?.src ||
+  [...document.querySelectorAll('script[src]')].map((s) => s.src).find((u) => /word-play-game\.js(\?|$)/.test(u)))) || '';
+
 const FONT_HREF =
   'https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Patrick+Hand&family=Permanent+Marker&display=swap';
 const STORAGE_KEY = 'wordplay-progress-v1';
@@ -320,7 +325,7 @@ class WordPlayGame extends HTMLElement {
   }
 
   async load() {
-    const base = new URL(this.getAttribute('data-url') || './data/', import.meta.url);
+    const base = new URL(this.getAttribute('data-url') || './data/', SCRIPT_URL || location.href);
     const get = (f) => fetch(new URL(f, base)).then((r) => {
       if (!r.ok) throw new Error(`${f}: ${r.status}`);
       return f.endsWith('.json') ? r.json() : r.text();
@@ -1066,5 +1071,6 @@ class WordPlayGame extends HTMLElement {
   }
 }
 
-if (!customElements.get('word-play-game')) customElements.define('word-play-game', WordPlayGame);
-export { findWords, settle, pointsFor };
+if (typeof customElements !== 'undefined' && !customElements.get('word-play-game')) customElements.define('word-play-game', WordPlayGame);
+if (typeof window !== 'undefined') window.WordPlayLogic = { findWords, settle, pointsFor };
+})();
