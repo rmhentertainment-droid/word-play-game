@@ -21,7 +21,7 @@ createServer(async (req, res) => {
   if (file !== root && !file.startsWith(root + sep)) { res.writeHead(403).end(); return; }
   try {
     const body = await readFile(file);
-    res.writeHead(200, { 'Content-Type': types[extname(file)] || 'application/octet-stream', 'Cache-Control': 'no-store' }).end(body);
+    res.writeHead(200, { 'Content-Type': types[extname(file)] || 'application/octet-stream', 'Cache-Control': 'no-store', 'Access-Control-Allow-Origin': '*' }).end(body);
   } catch {
     res.writeHead(404).end('Not found');
   }

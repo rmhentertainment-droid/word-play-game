@@ -7,9 +7,15 @@
 //   progress      JSON of the member's saved progress (from the WordPlayProgress collection)
 //   data-url      where the data folder lives (defaults to ./data next to this file)
 //   song-seconds  testing only: end every case after this many seconds
+//   start-case    open the case files with this case picked (same as ?case=N in the page address)
+//   start-screen  "cases" opens the case files first (same as ?screen=cases)
+//   exit-label    shows a back button on the title screen with this label; it fires game-exit
 // Events (listen from Velo):
 //   progress-change  detail: { memberId, progress, result }  -> save to the member's account
 //   game-audio       detail: { playing: true|false }        -> hide/pause the site music player
+//   game-exit        the back button on the title screen was pressed
+// The song also announces itself with window event "tm-media-play" {el}, which the Tots Mots site
+// player listens for: the site music fades out, and if the music is started again the game pauses.
 
 (() => {
 // Where this script was loaded from, so the data folder can be found next to it.
@@ -158,6 +164,7 @@ button:focus-visible, [tabindex]:focus-visible { outline:3px solid var(--pink); 
 .center { text-align:center; }
 
 /* title */
+.title .exit { position:absolute; top:12px; left:14px; }
 .title { justify-content:center; align-items:center; text-align:center; gap:22px; }
 .logo .presents { font-family:'Patrick Hand', cursive; font-size:22px; color:var(--muted); }
 .logo .name { font-family:'Permanent Marker', cursive; font-size:clamp(44px, 13cqw, 88px); line-height:1; margin-top:4px; transform:rotate(-3deg); }
@@ -338,10 +345,12 @@ class WordPlayGame extends HTMLElement {
     this.progress = this.loadProgress();
     // Links from the Games page: ?case=N opens the case files with that case picked,
     // ?screen=cases opens the case files. Songs still start only on the player's tap.
+    // The same options can come as attributes: start-case, start-screen.
     const params = new URLSearchParams(location.search);
-    const n = Number(params.get('case'));
+    const n = Number(this.getAttribute('start-case') || params.get('case'));
+    const screen = this.getAttribute('start-screen') || params.get('screen');
     if (n >= 1 && n <= levels.cases.length && this.isUnlocked(n)) { this.selectedCase = n; this.showCases(); }
-    else if (params.get('screen') === 'cases' || n) this.showCases();
+    else if (screen === 'cases' || n) this.showCases();
     else this.showTitle();
   }
 
@@ -389,6 +398,7 @@ class WordPlayGame extends HTMLElement {
     const modes = this.data.config.modes;
     this.show('title', `
       <section class="screen title">
+        ${this.getAttribute('exit-label') ? `<button class="icon-btn exit" data-action="exit" aria-label="${esc(this.getAttribute('exit-label'))}">${ICON.back}</button>` : ''}
         <div class="logo" role="img" aria-label="Tots Mots presents The Word Play">
           <div class="presents">Tots Mots presents</div>
           <div class="name">The Word <b>PLAY</b></div>
@@ -473,6 +483,14 @@ class WordPlayGame extends HTMLElement {
     if (lvl.audio && !override) {
       const a = new Audio(lvl.audio);
       a.preload = 'auto';
+      // Kept inside the game (not floating loose) so the site's music player can find it.
+      a.hidden = true;
+      this.shadow.appendChild(a);
+      // Something else paused our song (e.g. the site music player started): pause the game with it.
+      a.addEventListener('pause', () => {
+        const g = this.g;
+        if (this.audio === a && g && !g.paused && !g.over && !a.ended) this.pause();
+      });
       a.addEventListener('loadedmetadata', () => { if (isFinite(a.duration) && a.duration > 1 && this.g) this.g.duration = a.duration; });
       a.addEventListener('error', () => { if (this.audio === a) this.audioFailed = true; });
       this.audio = a;
@@ -488,14 +506,26 @@ class WordPlayGame extends HTMLElement {
 
   stopGame() {
     cancelAnimationFrame(this.raf);
-    if (this.audio) { this.audio.pause(); this.audio.src = ''; this.audio = null; this.emitAudio(false); }
+    if (this.audio) {
+      const a = this.audio;
+      this.audio = null;
+      a.pause();
+      a.remove();
+      a.removeAttribute('src');
+      this.emitAudio(false);
+    }
     if (this.g) this.g.over = true;
     this.g = null;
   }
 
   emitAudio(playing) {
     this.dispatchEvent(new CustomEvent('game-audio', { detail: { playing }, bubbles: true, composed: true }));
-    if (playing) { this.hushPage(); this.lastHush = performance.now(); }
+    if (playing) {
+      // The Tots Mots site player listens for this and fades its music out (one sound at a time).
+      window.dispatchEvent(new CustomEvent('tm-media-play', { detail: { el: this.audio } }));
+      this.hushPage();
+      this.lastHush = performance.now();
+    }
   }
 
   // Never let two songs play at once: pause any other audio or video on the page,
@@ -1054,6 +1084,7 @@ class WordPlayGame extends HTMLElement {
     else if (a === 'clues') { this.clues = !this.clues; b.setAttribute('aria-checked', this.clues); this.saveProgress(); }
     else if (a === 'cases') this.showCases();
     else if (a === 'title') { this.stopGame(); this.showTitle(); }
+    else if (a === 'exit') { this.stopGame(); this.dispatchEvent(new CustomEvent('game-exit', { bubbles: true, composed: true })); }
     else if (a === 'select') {
       const n = +b.dataset.case;
       if (!this.isUnlocked(n)) return;

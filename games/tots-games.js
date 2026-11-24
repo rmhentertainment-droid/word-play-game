@@ -3,7 +3,9 @@
 // Games come from games.json next to this file, so new games and covers need no code changes.
 //
 // Attributes:
-//   data-url   where games.json lives (defaults to the folder this script was loaded from)
+//   data-url    where games.json lives (defaults to the folder this script was loaded from)
+//   in-app      Play buttons fire "games-play" {slug, case, screen} instead of opening playUrl
+//   exit-label  shows a back button on the grid with this label; it fires "games-exit"
 (() => {
 const SCRIPT_URL = (typeof document !== 'undefined' && (document.currentScript?.src ||
   [...document.querySelectorAll('script[src]')].map((s) => s.src).find((u) => /tots-games\.js(\?|$)/.test(u)))) || '';
@@ -32,6 +34,8 @@ button { cursor:pointer; }
 :focus-visible { outline:3px solid var(--teal); outline-offset:2px; }
 .app { container-type:inline-size; background:var(--ground); min-height:100%; }
 .wrap { max-width:1200px; margin:0 auto; padding:16px; display:flex; flex-direction:column; gap:16px; }
+.top { display:flex; align-items:center; gap:12px; }
+.round { width:48px; height:48px; border-radius:50%; border:2px solid var(--line); background:var(--card); display:grid; place-items:center; flex:none; }
 h1 { font-weight:900; font-size:30px; margin:0; }
 h2 { font-weight:900; font-size:21px; margin:0 0 8px; }
 .search { display:flex; align-items:center; gap:8px; background:var(--card); border:2px solid var(--line); border-radius:999px; padding:0 16px; min-height:50px; }
@@ -152,12 +156,12 @@ class TotsGames extends HTMLElement {
     const keep = this.data.games.map((g) => ({ g, p: g.status === 'live' && this.progressFor(g) })).find((x) => x.p);
     this.app.innerHTML = `
       <div class="wrap">
-        <h1>Games</h1>
+        <div class="top">${this.getAttribute('exit-label') ? `<button class="round" data-exit aria-label="${esc(this.getAttribute('exit-label'))}">${ICON.back}</button>` : ''}<h1>Games</h1></div>
         <label class="search">${ICON.search}<input name="q" type="search" placeholder="Find a game" aria-label="Find a game" value="${esc(this.query)}" autocomplete="off"></label>
         <div class="chips" role="group" aria-label="Game types">
           ${['All', ...this.data.categories].map((c) => `<button class="chip" data-cat="${esc(c)}" aria-pressed="${c === this.category}">${esc(c)}</button>`).join('')}
         </div>
-        ${keep ? `<a class="keep" href="${esc(this.playHref(keep.g, { case: keep.p.next }))}">
+        ${keep ? `<a class="keep" href="${esc(this.playHref(keep.g, { case: keep.p.next }))}" data-play="${esc(keep.g.slug)}" data-case="${keep.p.next}">
           <img src="${esc(this.url(keep.g.cover))}" alt="">
           <div><div class="k">Keep playing</div><div class="t">${esc(keep.g.title)} · ${esc(keep.g.levelName)} ${keep.p.next}</div></div>
           <span class="go">${ICON.play}</span></a>` : ''}
@@ -212,8 +216,8 @@ class TotsGames extends HTMLElement {
           <div class="tags">${(g.categories || []).map((c) => `<span class="tag">${esc(c)}</span>`).join('')}</div>
         </div>
         <div class="btns">
-          <a class="btn primary" href="${esc(this.playHref(g, p ? { case: p.next } : {}))}">${ICON.play} ${p ? `Keep playing · ${esc(g.levelName)} ${p.next}` : 'Play'}</a>
-          <a class="btn" href="${esc(this.playHref(g, { screen: 'cases' }))}">${ICON.folder} Pick a ${esc(g.levelName.toLowerCase())}</a>
+          <a class="btn primary" href="${esc(this.playHref(g, p ? { case: p.next } : {}))}" data-play="${esc(g.slug)}" data-case="${p ? p.next : ''}">${ICON.play} ${p ? `Keep playing · ${esc(g.levelName)} ${p.next}` : 'Play'}</a>
+          <a class="btn" href="${esc(this.playHref(g, { screen: 'cases' }))}" data-play="${esc(g.slug)}" data-screen="cases">${ICON.folder} Pick a ${esc(g.levelName.toLowerCase())}</a>
         </div>
         <section>
           <h2>Your progress</h2>
@@ -232,6 +236,20 @@ class TotsGames extends HTMLElement {
   }
 
   onClick(e) {
+    const play = e.target.closest('[data-play]');
+    if (play && this.hasAttribute('in-app')) {
+      e.preventDefault();
+      const g = this.data.games.find((x) => x.slug === play.dataset.play) || {};
+      // embed: the game's own script and tag, so the host page can draw it in place
+      const detail = { slug: g.slug, case: Number(play.dataset.case) || null, screen: play.dataset.screen || null,
+        script: g.embed ? this.url(g.embed.script) : null, tag: g.embed ? g.embed.tag : null, title: g.title };
+      this.dispatchEvent(new CustomEvent('games-play', { detail, bubbles: true, composed: true }));
+      return;
+    }
+    if (e.target.closest('[data-exit]')) {
+      this.dispatchEvent(new CustomEvent('games-exit', { bubbles: true, composed: true }));
+      return;
+    }
     const chip = e.target.closest('[data-cat]');
     if (chip) {
       this.category = chip.dataset.cat;

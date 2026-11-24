@@ -1,5 +1,5 @@
 {
-  "_about": "The games shown in Kids mode > Games. Add a game by adding an entry. status: live or coming-soon. playUrl is the Wix page that holds the game. Images can be full links or files next to this one.",
+  "_about": "The games shown in Kids mode > Games. Add a game by adding an entry. status: live or coming-soon. playUrl is the Wix page that holds the game; embed is the game script and tag, used to open it inside Kids mode. Images can be full links or files next to this one.",
   "categories": ["Words", "Music", "Classroom"],
   "mysteryTiles": 2,
   "games": [
@@ -14,6 +14,7 @@
       "cover": "https://static.wixstatic.com/media/b32f9c_40e3d7c14cab424d9f325cf6155ccb06~mv2.jpg/v1/fill/w_600,h_800,al_c,q_85/cover.jpg",
       "banner": "https://static.wixstatic.com/media/b32f9c_40e3d7c14cab424d9f325cf6155ccb06~mv2.jpg/v1/fill/w_1400,h_500,al_c,q_80/banner.jpg",
       "playUrl": "/the-word-play",
+      "embed": { "script": "../word-play-game.js", "tag": "word-play-game" },
       "progressKey": "wordplay-progress-v1",
       "totalLevels": 23,
       "levelName": "Case",
