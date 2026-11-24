@@ -336,7 +336,13 @@ class WordPlayGame extends HTMLElement {
     const blocked = new Set(parseWordFile(block));
     this.data = { config, levels, dict: new Set(parseWordFile(words).filter((w) => !blocked.has(w))) };
     this.progress = this.loadProgress();
-    this.showTitle();
+    // Links from the Games page: ?case=N opens the case files with that case picked,
+    // ?screen=cases opens the case files. Songs still start only on the player's tap.
+    const params = new URLSearchParams(location.search);
+    const n = Number(params.get('case'));
+    if (n >= 1 && n <= levels.cases.length && this.isUnlocked(n)) { this.selectedCase = n; this.showCases(); }
+    else if (params.get('screen') === 'cases' || n) this.showCases();
+    else this.showTitle();
   }
 
   // ---------- progress ----------

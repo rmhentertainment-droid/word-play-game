@@ -1,0 +1,44 @@
+{
+  "_about": "The games shown in Kids mode > Games. Add a game by adding an entry. status: live or coming-soon. playUrl is the Wix page that holds the game. Images can be full links or files next to this one.",
+  "categories": ["Words", "Music", "Classroom"],
+  "mysteryTiles": 2,
+  "games": [
+    {
+      "slug": "the-word-play",
+      "title": "The Word Play",
+      "description": "Catch falling letters and spell words before the stack crosses the line.",
+      "publisher": "Tots Mots",
+      "categories": ["Words", "Music", "Classroom"],
+      "status": "live",
+      "badge": "NEW",
+      "cover": "https://static.wixstatic.com/media/b32f9c_40e3d7c14cab424d9f325cf6155ccb06~mv2.jpg/v1/fill/w_600,h_800,al_c,q_85/cover.jpg",
+      "banner": "https://static.wixstatic.com/media/b32f9c_40e3d7c14cab424d9f325cf6155ccb06~mv2.jpg/v1/fill/w_1400,h_500,al_c,q_80/banner.jpg",
+      "playUrl": "/the-word-play",
+      "progressKey": "wordplay-progress-v1",
+      "totalLevels": 23,
+      "levelName": "Case",
+      "screenshots": ["screens/word-play-1-title.jpg", "screens/word-play-2-clue.jpg", "screens/word-play-3-cold.jpg"],
+      "about": "A detective word game set to the 23 songs of The Word Play album. Letter blocks fall from the sky. Switch them while they fall, line them up, and spell words left to right to clear them. Each case lasts one song.",
+      "howToPlay": [
+        "Pick a letter while the block falls. Vowels can be any of A, E, I, O, U.",
+        "Move, turn and drop the blocks so they spell a word in a row, left to right.",
+        "Keep the stack under the yellow tape until the song ends to close the case."
+      ],
+      "goodToKnow": [
+        "Easy, Medium and Hard modes. The tape sits lower on harder modes.",
+        "Clues can show where a letter fits. Turn them off on the title screen.",
+        "23 cases, one for each song on the album.",
+        "Works on phones, tablets and classroom screens, with touch or a keyboard."
+      ]
+    },
+    {
+      "slug": "clean-up-crew",
+      "title": "Clean Up Crew",
+      "description": "Sort, stack and tidy up to the beat.",
+      "publisher": "Tots Mots",
+      "categories": ["Music", "Classroom"],
+      "status": "coming-soon",
+      "badge": "COMING SOON"
+    }
+  ]
+}

@@ -43,6 +43,13 @@ After saving a change in this project, send the new version up (from the `tots-m
 git subtree push --prefix=word-play-game game main
 ```
 
+## Games section (Kids mode › Games)
+
+`games/` holds `<tots-games>`: the games grid, search, category chips, Keep playing card and each game's details page. Edit `games/games.json` to add games, covers, badges, screenshots or to change `playUrl` (the Wix page that holds the game).
+- Custom Element link: `https://rmhentertainment-droid.github.io/word-play-game/games/tots-games.js`, tag name `tots-games`
+- Test page: https://rmhentertainment-droid.github.io/word-play-game/games/
+- The game understands `?case=N` (open the case files on that case) and `?screen=cases`.
+
 ## Hooking it into Wix (phase 4)
 
 - Music player: the game pauses any other audio on the page (including inside the floating music player) when a case starts, and keeps it paused. `wix/the-word-play-page.js` is the Velo page code that also hides the player during a case; check the two element IDs at its top.
