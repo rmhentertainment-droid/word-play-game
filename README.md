@@ -31,6 +31,18 @@ node word-play-game\tools\pull-tracks.mjs
 
 Word-rule checks: `node word-play-game\tools\test-logic.mjs`
 
+## Live copy (GitHub Pages)
+
+- Repository: https://github.com/rmhentertainment-droid/word-play-game (only this folder)
+- Play it: https://rmhentertainment-droid.github.io/word-play-game/
+- Game file for the Wix Custom Element: `https://rmhentertainment-droid.github.io/word-play-game/word-play-game.js`
+
+After saving a change in this project, send the new version up (from the `tots-mots-app` folder). It goes live a minute later:
+
+```
+git subtree push --prefix=word-play-game game main
+```
+
 ## Hooking it into Wix (phase 4)
 
 - Velo sets attributes `member-id`, `logged-in` and `progress` (the member's saved progress as JSON).
