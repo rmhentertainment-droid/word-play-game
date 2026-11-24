@@ -1,0 +1,7 @@
+# The Word Play: blocklist
+# Words here NEVER clear, even if they get added to words.txt by mistake.
+# Add any word you never want a child to see celebrated on screen.
+ass butt crap damn hell piss suck sucks poop pee
+kill kills dead die dies gun guns shot stab hate hates hurt
+sex drug drugs beer wine drunk
+fat dumb ugly stupid idiot loser nerd weird

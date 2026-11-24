@@ -1,0 +1,305 @@
+{
+  "album": "The Word Play",
+  "source": "Wix Songs collection",
+  "cases": [
+    {
+      "case": 1,
+      "songId": "6cd0ec89-b4a3-47a2-8cff-6181a002d1a6",
+      "trackTitle": "The Lineup",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_480fc176ab4e4933a4446cbb90fd79bb.wav",
+      "duration": 113,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 2,
+      "songId": "edbceca3-1c4c-4068-bbd3-fcfbba066576",
+      "trackTitle": "Word Play",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_6036a36f3d814d37aa8b94e4356e6756.wav",
+      "duration": 124,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 3,
+      "songId": "a8b0f6f4-0a60-4d34-906b-b1bc80214fa5",
+      "trackTitle": "Put It Together",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_5a77bce4f5854c6bb33bc743ba0cd5dd.wav",
+      "duration": 186,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 4,
+      "songId": "07543555-e6a3-4d58-a2c3-6189a354f9e8",
+      "trackTitle": "Letters Make Sounds",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_b508dc23230c4d0f98f737f651cb6c68.wav",
+      "duration": 135,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 5,
+      "songId": "342ea844-69c5-46ef-9c6b-dd37afa66fb9",
+      "trackTitle": "What's That Mean",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_babd861bb3d548e0ae5cb65259b9093c.wav",
+      "duration": 177,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 6,
+      "songId": "475b3582-72d7-44d6-aa05-807479050bf4",
+      "trackTitle": "Paint With Words",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_038cf3f34594451b9cea478a26800e8d.wav",
+      "duration": 137,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 7,
+      "songId": "b043b8a8-6a12-47b5-b9a9-7f21dacfb5f1",
+      "trackTitle": "Switch It Up",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_c0a2730e3f1c4114b502dc6c6e66bac1.wav",
+      "duration": 181,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 8,
+      "songId": "17eee280-bf14-4a09-b73c-5303a376eabc",
+      "trackTitle": "Vowel Crew",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_adb4d82e1a404a9da9b9dd6e02ccaf96.wav",
+      "duration": 162,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 9,
+      "songId": "b350b5a9-7e4c-4405-b6b1-26a638b5dcd2",
+      "trackTitle": "Between The Lines",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_fb7ae11f771e45859eec2dcc8ca2c3ea.wav",
+      "duration": 167,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 10,
+      "songId": "85ccfc14-e1cf-4eca-b43c-8a6f66414f96",
+      "trackTitle": "Same Same Different",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_6d2be1a453434c3080a5300a1f4057e6.wav",
+      "duration": 73,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 11,
+      "songId": "90b51cc3-ccb4-4295-9097-110c6f4cc2ad",
+      "trackTitle": "Who Did What",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_a93a739b4f60452bb54bb60455a2e34a.wav",
+      "duration": 146,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 12,
+      "songId": "fe8037ef-b25b-42a0-bead-a59c9adbc269",
+      "trackTitle": "Switch It Up - Remix",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_2580297ee8d74cc5b81fb6b088274806.wav",
+      "duration": 234,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 13,
+      "songId": "6bcb491e-4611-462e-a360-9ef7ded07aa2",
+      "trackTitle": "We Go Together - The Chuuch - Remix",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_84a479c3efe5417b8763958e20df12ca.wav",
+      "duration": 217,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 14,
+      "songId": "e1d331f8-2718-4c89-b8a3-cbfa07564653",
+      "trackTitle": "Ask Why",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_54243afd01e74d1a8afa7714bdca2e56.wav",
+      "duration": 122,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 15,
+      "songId": "ad17a245-661c-4202-9a64-b2d39dc43158",
+      "trackTitle": "I Hear That",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_0a526cf76c584de0a2cd5e459ce781b5.wav",
+      "duration": 191,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 16,
+      "songId": "336bff1f-7b4e-470c-960c-dda46fc8a775",
+      "trackTitle": "We Go Together",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_3179c7cc2df043a99f13d4c71a76c7fd.wav",
+      "duration": 183,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 17,
+      "songId": "2317390d-31a0-49ec-b85b-e59c5be79ea7",
+      "trackTitle": "Break It Down",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_e7c64e07841448dfa287321f0158e429.wav",
+      "duration": 198,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 18,
+      "songId": "95d83611-e89f-4f58-b369-2920879148bf",
+      "trackTitle": "Once Upon A Beat",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_7a8fc50f6056497db740cd3db643fde8.wav",
+      "duration": 262,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 19,
+      "songId": "4b0732e6-511f-4c64-b02f-a7fce193ac50",
+      "trackTitle": "What's That Mean - Remix",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_cf919bbd7f2c4568a4ae8f809baec162.wav",
+      "duration": 154,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 20,
+      "songId": "6bc75519-f5d1-4c12-ae2c-b9e07957830d",
+      "trackTitle": "Put It Together - Remix",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_7bfd713ffb224b089b9997a944a291f4.wav",
+      "duration": 235,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 21,
+      "songId": "58d38c50-d19d-4dd9-a13c-1e1f3331ed6a",
+      "trackTitle": "Consonant Bounce",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_6819efaf790b4700a712b43d55e44323.wav",
+      "duration": 211,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 22,
+      "songId": "793865da-340f-4366-955e-018d525bd7d7",
+      "trackTitle": "You Already Know",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_4407aad4cfe8482fa119a1b299ce21f0.wav",
+      "duration": 144,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    },
+    {
+      "case": 23,
+      "songId": "32540a18-318f-4082-8b1f-e8fffa106214",
+      "trackTitle": "Read The Room",
+      "audio": "https://music.wixstatic.com/mp3/b32f9c_6e4467f458564cf8a5e862b2497f4863.wav",
+      "duration": 209,
+      "background": null,
+      "thresholds": [
+        50,
+        300,
+        600
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+# The Word Play (game)
+
+The falling-letter word game for totsmots.com, built as one custom element: `<word-play-game>`.
+It is plain JavaScript with no build step, so the folder can be copied into the Wix site's code as is.
+
+## Try it on this PC
+
+From the `tots-mots-app` folder in Command Prompt:
+
+```
+node word-play-game\tools\serve.mjs
+```
+
+Then open http://localhost:5178. Keyboard: arrows move, Up turns, Space drops, 1-3 switch letters, Tab picks a block in a group, C for a clue, Esc pauses.
+To test endings quickly, add `song-seconds="30"` to the `<word-play-game>` tag in `index.html` (this skips the music).
+
+## Files you can edit without touching code
+
+| File | What it holds |
+| --- | --- |
+| `data/words.txt` | The kid-safe word list. Only these words clear. |
+| `data/blocklist.txt` | Words that never clear, even if added to the list by mistake. |
+| `data/config.json` | Speeds, minimum word length, case line height per mode, points, letter odds, detective tips. |
+| `data/levels.json` | The 23 cases: track title, song link, length, background, magnifier score thresholds. |
+
+`levels.json` is built from the Wix Songs collection (album "The Word Play"), so track titles are never typed by hand. To refresh it after changing songs in Wix:
+
+```
+node word-play-game\tools\pull-tracks.mjs
+```
+
+Word-rule checks: `node word-play-game\tools\test-logic.mjs`
+
+## Hooking it into Wix (phase 4)
+
+- Velo sets attributes `member-id`, `logged-in` and `progress` (the member's saved progress as JSON).
+- The game fires `progress-change` (save `detail.progress` to the WordPlayProgress collection for members; guests are saved on the device automatically) and `game-audio` (`detail.playing`: hide or pause the site music player while true).

@@ -1,0 +1,24 @@
+// Quick checks of the word rules: node word-play-game/tools/test-logic.mjs
+import { readFileSync } from 'node:fs';
+globalThis.HTMLElement = class {}; globalThis.customElements = { get: () => true };
+const { findWords, settle } = await import('../word-play-game.js');
+const dir = new URL('../data/', import.meta.url);
+const parse = (t) => t.split(/\r?\n/).map((l) => l.replace(/#.*/, '')).join(' ').toLowerCase().split(/[\s,]+/).filter((w) => /^[a-z]+$/.test(w));
+const blocked = new Set(parse(readFileSync(new URL('blocklist.txt', dir), 'utf8')));
+const dict = new Set(parse(readFileSync(new URL('words.txt', dir), 'utf8')).filter((w) => !blocked.has(w)));
+const grid = (rows) => rows.map((r) => [...r].map((ch) => (ch === '.' ? null : { ch })));
+let fail = 0;
+const check = (name, got, want) => { const ok = JSON.stringify(got) === JSON.stringify(want); if (!ok) fail++; console.log(ok ? 'PASS' : 'FAIL', name, ok ? '' : `got ${JSON.stringify(got)} want ${JSON.stringify(want)}`); };
+const words = (rows, min = 2) => findWords(grid(rows), dict, min).map((w) => w.word);
+check('row word left to right', words(['.......', '.CAT...']), ['cat']);
+check('vertical never counts', words(['C......', 'A......', 'T......']), []);
+check('right to left never counts', words(['TAC....']), []);
+check('longest word in a run wins', words(['CATS...']), ['cats']);
+check('min length respected', words(['.AT....'], 3), []);
+check('gap splits runs', words(['CA.T...'], 3), []);
+check('blocklisted word never clears', words(['.DEAD..'], 3), []);
+check('two words in one row', words(['CAT.DOG']), ['cat', 'dog']);
+const g = grid(['A..', '...', 'B..']); g[2][0] = null; settle(g);
+check('blocks drop into gaps', g.map((r) => r.map((c) => (c ? c.ch : '.')).join('')), ['...', '...', 'A..']);
+console.log(fail ? `${fail} failed` : 'All passed');
+process.exit(fail ? 1 : 0);

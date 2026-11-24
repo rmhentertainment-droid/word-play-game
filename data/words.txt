@@ -1,0 +1,72 @@
+# The Word Play: kid-safe word list (ages 3-8)
+# Only words on this list clear. Add or remove words freely, any number per line.
+# Lines starting with # are notes. Capital letters are fine. The board is 7 wide, so 7 letters is the longest that fits.
+# Any word also in blocklist.txt is never accepted, even if it is listed here.
+
+# 2 letters (Easy mode only)
+am an as at be by do go he hi if in is it me my no of oh on or ox so to up us we
+
+# 3 letters
+act add age ago aid aim air all and ant any ape arm art ask ate
+bad bag bat bay bed bee big bin bit bow box boy bud bug bun bus but buy bye
+cab can cap car cat cob cod cog cow cry cub cup cut
+dab dad day den dew did dig dim dip dog dot dry dug
+ear eat egg elf elk elm end eye
+fan far fed fee few fig fin fir fit fix fly fog for fox fry fun fur
+gap gas gem get gum had ham has hat hay hen her hid him hip his hog hop hot how hug hum hut
+ice icy ink inn its jam jar jaw jet jig job jog joy jug key kid kin kit
+lab lad lap law lay leg let lid lip lit log lot low
+mad man map mat may men met mix mom mop mud mug
+nap net new nod nor not now nut oak oar oat odd off oil old one our out owl own
+pad pal pan pat paw pay pea peg pen pet pie pig pin pit pod pop pot pup put
+rag ram ran rap rat raw ray red rib rid rim rip rod row rub rug run
+sad sap sat saw say sea see set sew she shy sip sir sis sit six ski sky son soy spy sum sun
+tab tag tan tap tar tea ten the tie tin tip toe ton too top tot toy try tub tug two
+urn use van vat vet wag wax way web wed wet who why wig win wit wok won wow
+yak yam yap yes yet you zap zip zoo
+
+# 4 letters
+able ants aunt baby back bags bake ball band bank bark barn base bath bats bead beak beam bean bear beat beds bees bell belt best bike bird blue boat body bone book boot bowl boys bugs bump bunk buns busy
+cake calf call calm came camp cane caps card care cars cart case cats cave chat chef chin chip chop clap clay clip club clue coat code coin cold come cook cool corn cows cozy crab crib crow cube cute
+dark dash date dawn deep deer desk dime dish dive dock does dogs doll dome door dots dove down drip drop drum duck dust
+each earn east easy edge eggs else even ever eyes face fact fair fall fans farm fast feed feel feet fern figs film find fine fire fish five flag flap flat flip flow foam fold folk food foot fork form frog from full fuzz
+game gate gave gear gift girl give glad glow glue goal goat gold golf gone good gown grab gray grew grin grow gulp
+half hall hand hang hard harp hats have hawk head heal hear heat help hens herb here hero hide high hike hill hint hive hold hole home honk hood hook hoop hope horn hose hour huge hugs hums hunt
+idea inch into iron item jams jazz jeep jets jobs join joke jump just keen keep kept kick kids kind king kiss kite knee knew knit knot know
+lace lady lake lamb lamp land lane last late lawn lazy lead leaf lean leap left lend lens less lick life lift like lime line lion list live load loaf lock long look loop lots loud love luck
+made mail main make mall many maps mark mask mast math meal mean meat meet melt menu mice mild milk mind mine mint miss mist mitt moon more moss most moth move much mule must
+nail name navy near neat neck need nest nets news next nice nine nook noon nose note oats once only open oven over owls
+pack page paid pail pair pals palm pans park part pass past path peak pear peas pens pets pick pies pigs pile pine pink pipe plan play plot plug plum poem pole pond pony pool pops pots pour pull pump pups push
+quiz race rack raft rain rake ramp rang read real rest rice rich ride ring rink road roar robe rock rode role roll roof room root rope rose rows ruby rugs rule runs rush
+sack safe said sail sale salt same sand sang sank save says seal seat seed seek seen self sell send ship shoe shop show shut side sign silk sing sink site size slid slip slow snow soap sock sofa soft soil sold song soon sort soup sour spin spot star stay step stew stir stop such suit sums sung suns swan swim
+tail take tale talk tall tame tank tape task team tell tent test text than that them then they thin this tide tidy tile time tiny tips toad toes told tone took tool tops toss town toys trap tray tree trip true tubs tube tuck tuna tune turn twin type
+unit upon used vans vase vest view vine vote wade wait wake walk wall want warm wash wave ways wear webs week well went were west what when whip wide wife wigs wild will wind wing wink wipe wise wish with woke wolf wood wool word wore work worm wrap
+yard yarn year yell yolk your zero zips zone zoom
+
+# 5 letters
+about above actor after again agree alarm album alike alive alone along angel angry apple apron awake award
+basic beach beads beans began begin being bells bench berry bikes birds black blank blend block bloom blown board boats bonus books boots brain brave bread break brick bride brush build bunch bunny
+cabin camel candy cards carry catch chain chair chalk charm chart cheek cheer chess chick child chips chose class clean clear climb clock close cloth cloud clown clues coach coast color count cover crane crawl crown cubes curve
+dance daisy dream dress drink drive eagle early earth eight empty enjoy enter equal event every extra
+fairy feast fence field first flame flash float floor flour flute focus force forty found frame fresh fruit funny
+games giant given glass globe grade grain grand grape grass great green group guess guide
+happy heart hello helps honey horse hotel house hurry ideas igloo index jelly jolly juice kites knock koala
+label large laugh learn lemon level light lines lions lucky lunch magic maple march match maybe metal might mixed model money month moose mouse mouth movie music
+nails names never night noise north notes ocean olive onion orbit order otter
+paint paper party pasta peace peach pearl pedal penny phone piano pilot pizza place plane plant plate plays point polar pound power price prize proud puppy
+quack queen quick quiet quilt radio rainy raise reach ready relax rhyme river roads robin robot rocks round royal ruler
+salad scale scarf scout seeds seven shape share sharp sheep shell shine shirt shoes short shout skate skirt sleep slide small smart smell smile snack snail snake solve sound space spell spend spoon sport squad stack stage stair stamp stand stars start state steam stick still stone stool storm story stove straw study sugar sunny super sweet swing
+table teach teeth thank there thing think three tiger title toast today topic torch total touch tower track trade train treat trees trick truck trust truth tulip twins
+uncle under until upper verse visit voice vowel wagon watch water whale wheat wheel where which while white whole women words world write wrote yards young yummy zebra
+
+# 6 letters
+action animal answer around artist autumn banana basket beaver better bigger bottle branch bridge bright bubble bucket butter button
+camera candle carrot castle cheese cherry circle clever closet cookie copper corner cotton cousin crayon create dancer desert dinner doctor dollar donkey double dragon drawer
+easily eleven enough family farmer father finger finish flower forest friend garden gentle giggle ginger golden ground guitar
+hammer handle happen helper hidden honest island jacket jungle kitten ladder lesson letter listen little lizard locket
+magnet marble market meadow mitten monkey mother number orange parade parent pencil people pepper person pickle planet player pocket potato puppet puzzle
+rabbit rhythm rocket school secret shadow silver simple sister smooth spider spring square stable sticky strong summer sunset
+taller ticket tomato turkey turtle twelve violin walnut window winter wizard wonder yellow
+
+# 7 letters (the whole board width)
+balloon brother chicken dolphin evening example feeling freedom giraffe harmony helpers kitchen library monster morning musical mystery nothing octopus penguin picture pumpkin rainbow reading rooster science singing teacher thunder unicorn weather writing
