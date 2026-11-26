@@ -93,5 +93,5 @@ git subtree push --prefix=word-play-game game main
   however fast you rub; half-done zones un-clean and germs come back; the song is never cut (it jumps back to chorus 2 when time runs out).
 - Fonts (Lilita One, Lato; OFL) and the title art are served from this folder, so the game makes no requests to other sites
   except the song itself. Saved on the device (localStorage `scrubsquad-v1`): the Standard/Littles choice and the hands.
-- Games grid: `"status": "review"` until Ryan signs off (the grid shows "Coming soon"; `?preview` makes it playable).
+- Games grid: live since 2026-11-25 (Ryan approved). Open items still his call: Littles ending, hero sign, section times, lighter MP3.
   Cover and banner: `scrub-squad/promo/` (`cover.html` is their source).
