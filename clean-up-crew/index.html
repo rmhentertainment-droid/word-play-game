@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Clean Up Crew (test page)</title>
+  <style>html, body { margin: 0; height: 100%; background: #56C1EE; } clean-up-crew { height: 100%; }</style>
+  <script src="./clean-up-crew.js"></script>
+</head>
+<body>
+  <!-- Testing: ?seconds=30 makes a round 30 seconds long (no music). ?classroom opens the Classroom timer. -->
+  <script>
+    const p = new URLSearchParams(location.search);
+    const g = document.createElement('clean-up-crew');
+    if (p.has('classroom')) g.setAttribute('start-screen', 'classroom');
+    if (p.get('seconds')) g.setAttribute('song-seconds', p.get('seconds'));
+    document.body.appendChild(g);
+    // ?shot=play|finish sets up a screen for the Games grid screenshots (used with ?seconds so no music plays)
+    const shot = p.get('shot');
+    if (shot) {
+      const wait = setInterval(() => {
+        if (!g.ready) return;
+        clearInterval(wait);
+        g.reduced = true;
+        g.shadowRoot.querySelector('.stage').classList.add('rm');
+        g.shadowRoot.querySelector('[data-act="play"]').click();
+        g.g.clock = shot === 'finish' ? 108 : 73; // 0:37 / 1:12 left, as on the mockup
+        const n = shot === 'finish' ? g.g.items.length : 9;
+        g.g.items.slice(0, n).forEach((it) => g.drop(it, it.bin, it.x, it.y));
+      }, 100);
+    }
+  </script>
+</body>
+</html>

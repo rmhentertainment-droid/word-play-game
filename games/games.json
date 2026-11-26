@@ -38,8 +38,28 @@
       "description": "Sort, stack and tidy up to the beat.",
       "publisher": "Tots Mots",
       "categories": ["Music", "Classroom"],
-      "status": "coming-soon",
-      "badge": "COMING SOON"
+      "status": "review",
+      "badge": "COMING SOON",
+      "cover": "../clean-up-crew/promo/cover.png",
+      "banner": "../clean-up-crew/promo/banner.png",
+      "playUrl": "/clean-up-crew",
+      "embed": { "script": "../clean-up-crew/clean-up-crew.js", "tag": "clean-up-crew" },
+      "secondary": { "label": "Classroom timer", "screen": "classroom", "icon": "screen" },
+      "progressType": "stars",
+      "saveKey": "cleanupcrew-v1",
+      "screenshots": ["screens/clean-up-crew-1-start.png", "screens/clean-up-crew-2-play.png", "screens/clean-up-crew-3-finish.png"],
+      "about": "A tidy-up game set to the song Clean Up Crew (We Got This). Toys are all over the playroom. Drag each one into the right bin before the song ends, and watch the room go from messy to sparkling.",
+      "howToPlay": [
+        "Press Play. The song starts, and the timer is the song.",
+        "Drag a toy into the bin with its picture: blocks, stuffies, books or clothes. Or tap a toy, then tap a bin.",
+        "Put every toy away before the song ends to earn three stars."
+      ],
+      "goodToKnow": [
+        "Little mess (10 toys) or Big mess (16 toys). Pick with Choose Level.",
+        "A wrong bin never costs anything: the toy just bounces back.",
+        "Classroom timer: a big-screen countdown for the whole class, with a class streak.",
+        "Bins use pictures, not words, so pre-readers can play. Grown-ups can turn sounds and toy counts on or off."
+      ]
     }
   ]
 }

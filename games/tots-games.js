@@ -23,6 +23,7 @@ const ICON = {
   lock: svg('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>', 28),
   question: svg('<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14M12 17.5v.01"/>', 40),
   check: svg('<path d="M5 12l4 4 10-10"/>', 18),
+  screen: svg('<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>'),
 };
 
 const CSS = `
@@ -101,6 +102,19 @@ class TotsGames extends HTMLElement {
     this.query = '';
     this.category = 'All';
     this.view = null;
+    // ?preview in the page address shows games that are waiting for review ("status": "review") as playable
+    try { this.preview = new URLSearchParams(location.search).has('preview'); } catch { this.preview = false; }
+  }
+
+  isLive(g) { return g.status === 'live' || (g.status === 'review' && this.preview); }
+
+  // Clean Up Crew style progress (progressType "stars"): best stars, the badge, the class streak
+  starStats(g) {
+    try {
+      const d = JSON.parse(localStorage.getItem(g.saveKey)) || {};
+      const s = d.save || {};
+      return { best: s.best || 0, badge: !!s.captain, streak: (s.streak && s.streak.count) || 0 };
+    } catch { return { best: 0, badge: false, streak: 0 }; }
   }
 
   connectedCallback() {
@@ -153,7 +167,7 @@ class TotsGames extends HTMLElement {
 
   render() {
     if (this.view) return this.renderDetails(this.data.games.find((g) => g.slug === this.view));
-    const keep = this.data.games.map((g) => ({ g, p: g.status === 'live' && this.progressFor(g) })).find((x) => x.p);
+    const keep = this.data.games.map((g) => ({ g, p: this.isLive(g) && this.progressFor(g) })).find((x) => x.p);
     this.app.innerHTML = `
       <div class="wrap">
         <div class="top">${this.getAttribute('exit-label') ? `<button class="round" data-exit aria-label="${esc(this.getAttribute('exit-label'))}">${ICON.back}</button>` : ''}<h1>Games</h1></div>
@@ -185,9 +199,11 @@ class TotsGames extends HTMLElement {
     const mystery = filtered ? 0 : this.data.mysteryTiles || 0;
     slot.innerHTML = `<div class="grid">
       ${games.map((g) => {
-        const live = g.status === 'live';
-        const cover = g.cover ? `<img src="${esc(this.url(g.cover))}" alt="" loading="lazy">` : `<div class="placeholder">${esc(g.title)}</div>`;
-        const badge = g.badge ? `<span class="badge ${live ? '' : 'soon'}">${esc(g.badge)}</span>` : '';
+        const live = this.isLive(g);
+        // a game waiting for review keeps its plain tile (no new cover) until it goes live
+        const cover = g.cover && (live || g.status !== 'review') ? `<img src="${esc(this.url(g.cover))}" alt="" loading="lazy">` : `<div class="placeholder">${esc(g.title)}</div>`;
+        const label = live && g.status === 'review' ? 'PREVIEW' : g.badge;
+        const badge = label ? `<span class="badge ${live ? '' : 'soon'}">${esc(label)}</span>` : '';
         const inner = `<div class="cover">${cover}${badge}</div><span class="name">${esc(g.title)}</span><span class="desc">${esc(g.description)}</span>`;
         return live
           ? `<button class="tile" data-game="${esc(g.slug)}" aria-label="${esc(`${g.title}. ${g.description}`)}">${inner}</button>`
@@ -200,6 +216,17 @@ class TotsGames extends HTMLElement {
   renderDetails(g) {
     if (!g) { this.view = null; return this.render(); }
     const p = this.progressFor(g);
+    const stars = g.progressType === 'stars' ? this.starStats(g) : null;
+    const second = g.secondary
+      ? `<a class="btn" href="${esc(this.playHref(g, { screen: g.secondary.screen }))}" data-play="${esc(g.slug)}" data-screen="${esc(g.secondary.screen)}">${ICON[g.secondary.icon] || ICON.play} ${esc(g.secondary.label)}</a>`
+      : g.levelName ? `<a class="btn" href="${esc(this.playHref(g, { screen: 'cases' }))}" data-play="${esc(g.slug)}" data-screen="cases">${ICON.folder} Pick a ${esc(g.levelName.toLowerCase())}</a>` : '';
+    const stats = stars
+      ? `<div class="stat"><b>${stars.best}/3</b><small>Best stars</small></div>
+            <div class="stat"><b>${stars.badge ? 'Yes' : 'Not yet'}</b><small>Captain badge</small></div>
+            <div class="stat"><b>${stars.streak}</b><small>Class streak (days)</small></div>`
+      : `<div class="stat"><b>${p ? p.solved : 0}/${g.totalLevels}</b><small>${esc(g.levelName)}s solved</small></div>
+            <div class="stat"><b>${p ? p.best : 0}</b><small>Best score</small></div>
+            <div class="stat"><b>${p ? p.magnifiers : 0}</b><small>Magnifiers</small></div>`;
     this.app.innerHTML = `
       <div class="banner" style="background-image:url('${esc(this.url(g.banner || g.cover))}')">
         <button class="back" data-back aria-label="Back to games">${ICON.back}</button>
@@ -217,14 +244,12 @@ class TotsGames extends HTMLElement {
         </div>
         <div class="btns">
           <a class="btn primary" href="${esc(this.playHref(g, p ? { case: p.next } : {}))}" data-play="${esc(g.slug)}" data-case="${p ? p.next : ''}">${ICON.play} ${p ? `Keep playing · ${esc(g.levelName)} ${p.next}` : 'Play'}</a>
-          <a class="btn" href="${esc(this.playHref(g, { screen: 'cases' }))}" data-play="${esc(g.slug)}" data-screen="cases">${ICON.folder} Pick a ${esc(g.levelName.toLowerCase())}</a>
+          ${second}
         </div>
         <section>
           <h2>Your progress</h2>
           <div class="stats">
-            <div class="stat"><b>${p ? p.solved : 0}/${g.totalLevels}</b><small>${esc(g.levelName)}s solved</small></div>
-            <div class="stat"><b>${p ? p.best : 0}</b><small>Best score</small></div>
-            <div class="stat"><b>${p ? p.magnifiers : 0}</b><small>Magnifiers</small></div>
+            ${stats}
           </div>
         </section>
         ${(g.screenshots || []).length ? `<section><h2>Screenshots</h2><div class="shots">${g.screenshots.map((s, i) => `<img src="${esc(this.url(s))}" alt="${esc(g.title)} screenshot ${i + 1}" loading="lazy">`).join('')}</div></section>` : ''}

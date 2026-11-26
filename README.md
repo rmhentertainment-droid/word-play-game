@@ -56,3 +56,22 @@ git subtree push --prefix=word-play-game game main
 
 - Velo sets attributes `member-id`, `logged-in` and `progress` (the member's saved progress as JSON).
 - The game fires `progress-change` (save `detail.progress` to the WordPlayProgress collection for members; guests are saved on the device automatically) and `game-audio` (`detail.playing`: hide or pause the site music player while true).
+
+## Clean Up Crew (game)
+
+`clean-up-crew/` holds `<clean-up-crew>`, the song-timed sorting game: drag toys into the right bins before
+"Clean Up Crew (We Got This)" ends. Plain JavaScript, no build step, same as The Word Play.
+
+- Try it: `node word-play-game\tools\serve.mjs`, then http://localhost:5178/clean-up-crew/
+  (`?seconds=30` = a 30-second round with no music, `?classroom` = open the Classroom timer).
+- Live copy: https://rmhentertainment-droid.github.io/word-play-game/clean-up-crew/
+  Custom Element: `https://rmhentertainment-droid.github.io/word-play-game/clean-up-crew/clean-up-crew.js`, tag `clean-up-crew`
+- The song (title, audio link, length) is `clean-up-crew/song.json`, pulled from the Wix Songs collection:
+  `node word-play-game\tools\pull-song.mjs`. Never type the title by hand.
+- Art: the toys, bins, robot, rhino and leopard are drawn in code (`clean-up-crew/art.js`) as stand-ins. To use real art,
+  put a transparent PNG/WebP in `clean-up-crew/art/` and list it in `clean-up-crew/art/art.json` by name
+  (names are listed there). Games grid cover and banner: `clean-up-crew/promo/` (`cover.html` is their source).
+- Saved on the device (localStorage `cleanupcrew-v1`): the Captain badge, best stars, the class streak, grown-up settings.
+- Games grid: its entry in `games/games.json` has `"status": "review"`, so everyone still sees "Coming soon";
+  add `?preview` to the page address to play it from the grid. Change it to `"live"` when Ryan signs off.
+- Wix page (optional, for a standalone /clean-up-crew page): `wix/clean-up-crew-page.js`.
