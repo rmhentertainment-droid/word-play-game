@@ -1,0 +1,52 @@
+{
+  "songId": "98a536e9-29d3-483d-b8c7-404ce0b510ef",
+  "songKey": "no-germs",
+  "title": "No Germs",
+  "album": "Kids Music Grownups Love Vol. 1",
+  "audio": "https://music.wixstatic.com/mp3/b32f9c_2a49e0311f4b4f489e5dc0b227f1dc91.wav",
+  "duration": 147,
+  "source": "Wix Songs collection",
+  "_sections": "Section start times in seconds. ESTIMATED by Cody from the audio (loudness + beat), waiting for Ryan to confirm or correct. kind: intro, verse, chorus or outro. loopFrom = where the song jumps back to (start of chorus 2) when time runs out; loopAt = where that jump happens (end of the last chorus, so the round never hits the silent tail). bpm + firstBeat time the germs bouncing in choruses.",
+  "end": 147.4,
+  "sections": [
+    {
+      "name": "Intro",
+      "kind": "intro",
+      "start": 0
+    },
+    {
+      "name": "Chorus",
+      "kind": "chorus",
+      "start": 7.7
+    },
+    {
+      "name": "Verse",
+      "kind": "verse",
+      "start": 35.1
+    },
+    {
+      "name": "Chorus",
+      "kind": "chorus",
+      "start": 62.6
+    },
+    {
+      "name": "Verse",
+      "kind": "verse",
+      "start": 90
+    },
+    {
+      "name": "Chorus",
+      "kind": "chorus",
+      "start": 117.5
+    },
+    {
+      "name": "Outro",
+      "kind": "outro",
+      "start": 141.5
+    }
+  ],
+  "loopFrom": 62.6,
+  "loopAt": 141.5,
+  "bpm": 95.2,
+  "firstBeat": 7.77
+}

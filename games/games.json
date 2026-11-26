@@ -60,6 +60,32 @@
         "Classroom timer: a big-screen countdown for the whole class, with a class streak.",
         "Bins use pictures, not words, so pre-readers can play. Grown-ups can turn sounds and toy counts on or off."
       ]
+    },
+    {
+      "slug": "scrub-squad",
+      "title": "Scrub Squad",
+      "description": "Scrub every germ off both hands before the song ends.",
+      "publisher": "Tots Mots",
+      "categories": ["Music", "Classroom"],
+      "status": "review",
+      "badge": "NEW",
+      "cover": "../scrub-squad/promo/cover.png",
+      "banner": "../scrub-squad/promo/banner.png",
+      "playUrl": "/scrub-squad",
+      "embed": { "script": "../scrub-squad/scrub-squad.js", "tag": "scrub-squad" },
+      "screenshots": ["screens/scrub-squad-1-title.png", "screens/scrub-squad-2-play.png", "screens/scrub-squad-3-finish.png"],
+      "about": "A handwashing game set to the song No Germs. Sneaky germs creep onto two big cartoon hands, palm side and back. Rub them off zone by zone while the song plays: palms, fingers, fingertips, thumbs and wrists.",
+      "howToPlay": [
+        "Press Let’s scrub! The song starts, and the song is the clock.",
+        "Rub back and forth on a germ with a finger or the mouse. Taps don’t scrub: it takes real rubbing.",
+        "Fill every bubble at the bottom. Leave a spot half done and the sneaky germs tiptoe back!"
+      ],
+      "goodToKnow": [
+        "Every zone needs its full scrub time, like real handwashing: about 20 seconds in all.",
+        "Standard (ages 5–8) has 10 zones. Littles (ages 3–5) has 6 bigger zones and bigger germs.",
+        "Four skin tones to pick from. No scores and no losing: the song keeps going until every zone is clean.",
+        "Works on phones, tablets, Chromebooks and classroom screens, in landscape or portrait."
+      ]
     }
   ]
 }

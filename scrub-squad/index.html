@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Scrub Squad (test page)</title>
+  <style>html, body { margin: 0; height: 100%; background: #020818; } scrub-squad { height: 100%; }</style>
+  <script src="./scrub-squad.js"></script>
+</head>
+<body>
+  <!-- Testing:
+       ?seconds=40        a 40-second silent round (sections scaled), to see the loop and endings quickly
+       ?littles=chorus    Littles fade out at the end of a chorus after they finish (open item 1; default plays the full song)
+       ?sign              show the "Be clean, be healthy, be a hero" sign on the celebration screen (open item 2)
+       ?shot=title|play|finish  sets up a screen for the Games grid screenshots (use with ?seconds so no music plays) -->
+  <script>
+    const p = new URLSearchParams(location.search);
+    const g = document.createElement('scrub-squad');
+    if (p.get('seconds')) g.setAttribute('song-seconds', p.get('seconds'));
+    if (p.get('littles')) g.setAttribute('littles-ending', p.get('littles'));
+    if (p.has('sign')) g.setAttribute('hero-sign', '');
+    document.body.appendChild(g);
+    const shot = p.get('shot');
+    if (shot && shot !== 'title') {
+      // no entrance animations in screenshots
+      const st = document.createElement('style'); st.textContent = '*{animation:none!important;transition:none!important}';
+      const wait = setInterval(() => {
+        g.shadowRoot && !g.shadowRoot.querySelector('#noanim') && g.shadowRoot.appendChild(Object.assign(st.cloneNode(true), { id: 'noanim' }));
+        if (!g.ready) return;
+        clearInterval(wait);
+        g.shadowRoot.querySelector('[data-act="play"]').click();
+        setTimeout(() => {
+          const S = g.S;
+          S.t = 6; S.clock = shot === 'finish' ? 70 : 66;
+          S.groups.forEach((z, i) => { z.delay = 0; if ([0, 3, 6].includes(i)) { z.prog = 1; z.clean = true; } else if (i === 1 || i === 7) z.prog = 0.5; });
+          if (shot === 'finish') { S.groups.forEach((z) => { z.prog = 1; z.clean = true; }); }
+          // step the game so germs have crept in (or the rinse has finished) before the picture is taken
+          for (let i = 0; i < (shot === 'finish' ? 70 : 50); i++) g.update(0.05);
+          if (shot === 'play') { const [x, y] = g.zoneCenter(1); for (let i = 0; i < 40; i++) g.S.foam[0].push({ x: g.S.groups[1].lc[0] + (Math.random() - 0.5) * 60, y: g.S.groups[1].lc[1] + (Math.random() - 0.5) * 40, r: 4 + Math.random() * 6, b: g.S.t }); g.S.ptr = { ...g.S.ptr, down: true, x, y, e: 9, g: 1, h: 0 }; }
+        }, 400);
+      }, 100);
+    }
+  </script>
+</body>
+</html>

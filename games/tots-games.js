@@ -246,12 +246,12 @@ class TotsGames extends HTMLElement {
           <a class="btn primary" href="${esc(this.playHref(g, p ? { case: p.next } : {}))}" data-play="${esc(g.slug)}" data-case="${p ? p.next : ''}">${ICON.play} ${p ? `Keep playing · ${esc(g.levelName)} ${p.next}` : 'Play'}</a>
           ${second}
         </div>
-        <section>
+        ${stars || g.progressKey ? `<section>
           <h2>Your progress</h2>
           <div class="stats">
             ${stats}
           </div>
-        </section>
+        </section>` : ''}
         ${(g.screenshots || []).length ? `<section><h2>Screenshots</h2><div class="shots">${g.screenshots.map((s, i) => `<img src="${esc(this.url(s))}" alt="${esc(g.title)} screenshot ${i + 1}" loading="lazy">`).join('')}</div></section>` : ''}
         <section class="card"><h2>About this game</h2><p>${esc(g.about)}</p></section>
         <section class="card"><h2>How to play</h2><ol class="steps">${(g.howToPlay || []).map((s) => `<li>${esc(s)}</li>`).join('')}</ol></section>

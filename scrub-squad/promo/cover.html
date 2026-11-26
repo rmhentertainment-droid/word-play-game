@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Scrub Squad cover (source for cover.png / banner.png)</title>
+<!-- Renders the Games grid cover (600x800) or banner (?banner, 1400x500) from the No Germs artwork.
+     msedge --headless --screenshot=cover.png --window-size=600,800 http://localhost:5178/scrub-squad/promo/cover.html -->
+<style>
+  @font-face { font-family: "Lilita One"; src: url(../fonts/lilita-one.woff2) format("woff2"); }
+  @font-face { font-family: "Lato"; font-weight: 900; src: url(../fonts/lato-900.woff2) format("woff2"); }
+  html, body { margin: 0; }
+  .c { position: relative; overflow: hidden; color: #fff; font-family: Lato, sans-serif;
+    background:
+      linear-gradient(#00C7DF1c 3px, transparent 3px) 0 0 / 74px 74px,
+      linear-gradient(90deg, #00C7DF1c 3px, transparent 3px) 0 0 / 74px 74px,
+      radial-gradient(120% 90% at 50% 30%, #13507e, #041146 60%, #020a24); }
+  .art { position: absolute; border-radius: 26px; overflow: hidden; box-shadow: 0 0 0 5px #ffffff40, 0 20px 50px #000b; transform: rotate(-2deg); }
+  .art img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  h1 { position: absolute; margin: 0; font-family: "Lilita One"; font-weight: 400; color: #00C7DF; line-height: .9; transform: rotate(-3deg);
+    text-shadow: 0 4px 0 #fff, 0 9px 0 #041146, 4px 4px 0 #041146, -4px 4px 0 #041146, 0 18px 30px #000a; }
+  h1 b { display: block; color: #E5322B; font-weight: 400; font-size: .52em; }
+  p { position: absolute; margin: 0; font-weight: 900; color: #d4eef8; }
+  .splat { position: absolute; border-radius: 50%; }
+  .bub { position: absolute; border-radius: 50%; border: 3px solid #ffffffaa; background: radial-gradient(circle at 35% 30%, #ffffffcc 0 12%, #bdf3ff30 13% 70%, #ffffff55 100%); }
+</style>
+</head>
+<body>
+<div class="c" id="c"></div>
+<script>
+  const banner = location.search.includes('banner');
+  const c = document.getElementById('c');
+  const bub = (x, y, r) => `<div class="bub" style="left:${x}px;top:${y}px;width:${r}px;height:${r}px"></div>`;
+  if (banner) {
+    c.style.width = '1400px'; c.style.height = '500px';
+    c.innerHTML = `
+      <div class="splat" style="left:-60px;top:330px;width:260px;height:260px;background:#E5322B33"></div>
+      <div class="splat" style="left:1240px;top:-80px;width:240px;height:240px;background:#00C7DF33"></div>
+      <div class="art" style="left:90px;top:40px;width:420px;height:420px"><img src="../art/artwork.jpg" alt=""></div>
+      <h1 style="left:600px;top:110px;font-size:132px"><b>No Germs</b>Scrub Squad</h1>
+      <p style="left:610px;top:380px;font-size:32px">Scrub every germ before the song ends!</p>
+      ${bub(1180, 300, 70)}${bub(1270, 230, 40)}${bub(540, 40, 50)}${bub(1290, 380, 26)}`;
+  } else {
+    c.style.width = '600px'; c.style.height = '800px';
+    c.innerHTML = `
+      <div class="splat" style="left:-70px;top:640px;width:240px;height:240px;background:#E5322B33"></div>
+      <div class="splat" style="left:470px;top:-60px;width:200px;height:200px;background:#00C7DF33"></div>
+      <div class="art" style="left:50px;top:44px;width:500px;height:500px"><img src="../art/artwork.jpg" alt=""></div>
+      <h1 style="left:0;right:0;top:572px;text-align:center;font-size:112px">Scrub Squad</h1>
+      <p style="left:0;right:0;top:700px;text-align:center;font-size:27px">Scrub every germ before the song ends!</p>
+      ${bub(470, 520, 60)}${bub(40, 520, 36)}${bub(520, 610, 28)}`;
+  }
+</script>
+</body>
+</html>

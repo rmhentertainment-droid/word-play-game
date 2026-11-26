@@ -75,3 +75,23 @@ git subtree push --prefix=word-play-game game main
 - Games grid: live since 2026-11-25 (Ryan signed off). A new game can use `"status": "review"` so everyone still sees "Coming soon";
   add `?preview` to the page address to play it from the grid, then `"live"` once signed off.
 - Wix page (optional, for a standalone /clean-up-crew page): `wix/clean-up-crew-page.js`.
+
+## Scrub Squad (game)
+
+`scrub-squad/` holds `<scrub-squad>`, the "No Germs" handwashing game (ages 3–8): germs creep onto two big hands
+(palm side + back of hand) and the player rubs them off zone by zone while the song plays. Plain JavaScript, no build step.
+
+- Try it: `node word-play-game\tools\serve.mjs`, then http://localhost:5178/scrub-squad/
+  (`?seconds=40` = a silent 40-second round, `?littles=chorus` = Littles fade out at the end of a chorus, `?sign` = the
+  "Be clean, be healthy, be a hero" sign on the celebration screen, `?shot=play|finish` = screenshot setups).
+- Custom Element: `https://rmhentertainment-droid.github.io/word-play-game/scrub-squad/scrub-squad.js`, tag `scrub-squad`
+  (attributes `littles-ending="chorus"` and `hero-sign` switch on the two options above).
+- The song record (title, audio link) is `scrub-squad/song.json`, pulled from the Wix Songs collection:
+  `node word-play-game\tools\pull-song.mjs scrub-squad`. Never type the title by hand. The same file holds the section
+  markers (`sections`, `loopFrom`, `loopAt`, `bpm`, `firstBeat`); pulling the song again keeps them.
+- Rules that must not change: scrubbing never changes the skin colour; every zone needs its full time (2.0 s, Littles 2.6 s)
+  however fast you rub; half-done zones un-clean and germs come back; the song is never cut (it jumps back to chorus 2 when time runs out).
+- Fonts (Lilita One, Lato; OFL) and the title art are served from this folder, so the game makes no requests to other sites
+  except the song itself. Saved on the device (localStorage `scrubsquad-v1`): the Standard/Littles choice and the hands.
+- Games grid: `"status": "review"` until Ryan signs off (the grid shows "Coming soon"; `?preview` makes it playable).
+  Cover and banner: `scrub-squad/promo/` (`cover.html` is their source).
