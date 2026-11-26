@@ -72,6 +72,6 @@ git subtree push --prefix=word-play-game game main
   put a transparent PNG/WebP in `clean-up-crew/art/` and list it in `clean-up-crew/art/art.json` by name
   (names are listed there). Games grid cover and banner: `clean-up-crew/promo/` (`cover.html` is their source).
 - Saved on the device (localStorage `cleanupcrew-v1`): the Captain badge, best stars, the class streak, grown-up settings.
-- Games grid: its entry in `games/games.json` has `"status": "review"`, so everyone still sees "Coming soon";
-  add `?preview` to the page address to play it from the grid. Change it to `"live"` when Ryan signs off.
+- Games grid: live since 2026-11-25 (Ryan signed off). A new game can use `"status": "review"` so everyone still sees "Coming soon";
+  add `?preview` to the page address to play it from the grid, then `"live"` once signed off.
 - Wix page (optional, for a standalone /clean-up-crew page): `wix/clean-up-crew-page.js`.
