@@ -54,6 +54,7 @@ const GERMS = [
   { name: 'Boo', body: '#3FA6EC', dark: '#1A4F9C', tip: '#9EDCFF', spk: 'nub' },
   { name: 'Prickles', body: '#A85BE2', dark: '#5A1E8E', tip: '#FF6FB0', spk: 'cone' },
 ];
+const FOAM_LIFE = 4; // seconds a soap bubble stays on the hand
 const PRAISE = ['Squeaky!', 'Bye-bye, germs!', 'Sparkly!', 'Scrub-a-dub!', 'Shiny clean!', 'Germ-free zone!'];
 // Fallback timing if song.json has no markers (fractions of the song are scaled to its length)
 const DEFAULT_SECTIONS = [['Intro', 'intro', 0], ['Chorus', 'chorus', 0.052], ['Verse', 'verse', 0.238], ['Chorus', 'chorus', 0.425],
@@ -93,10 +94,10 @@ const thumbTip = () => [THUMB.bx + Math.cos(THUMB.ang) * (THUMB.len - THUMB.w / 
 
 // Drawing shapes
 const SH = { palm: new Path2D(), fingers: FING.map(() => new Path2D()), thumb: new Path2D(), wrist: new Path2D() };
-rrect(SH.palm, 24, 142, 152, 124, [34, 28, 52, 60]);
+rrect(SH.palm, 24, 142, 152, 110, [34, 28, 44, 50]);
 FING.forEach((f, i) => capsule(SH.fingers[i], f.x + f.w / 2, FBASE, -Math.PI / 2, f.w, FBASE - f.t));
 capsule(SH.thumb, THUMB.bx, THUMB.by, THUMB.ang, THUMB.w, THUMB.len);
-rrect(SH.wrist, 58, 246, 90, 66, [0, 0, 12, 12]);
+rrect(SH.wrist, 58, 232, 90, 80, [0, 0, 12, 12]);
 const ALL_SH = [SH.wrist, SH.palm, SH.thumb, ...SH.fingers];
 const UNION = new Path2D();
 ALL_SH.forEach((p) => UNION.addPath(p));
@@ -824,13 +825,13 @@ class ScrubSquad extends HTMLElement {
     for (let n = 0; n < 500; n++) {
       const z = pick(g.subs);
       const x = rnd(0, HW); const y = rnd(0, HH);
-      if (y > 272) continue; // not under the cuff
+      if (y > 280) continue; // not under the cuff
       if (hitZone(x, y) !== z || !inHand(x + 8, y) || !inHand(x - 8, y) || !inHand(x, y + 8) || !inHand(x, y - 8)) continue;
       let ok = true;
       for (const o of S.germs) if (o.h === g.h && o.st !== 'pop' && Math.hypot(o.x - x, o.y - y) < 30) ok = false;
       if (ok || n > 380) return [x, y];
     }
-    return [110, 200];
+    return this.localCenter(g.subs);
   }
   spawn(gi, sneaky) {
     const S = this.S; const g = S.groups[gi];
@@ -921,9 +922,9 @@ class ScrubSquad extends HTMLElement {
         const [sx, sy] = kb ? this.zoneCenter(S.kz) : [p.x, p.y];
         const [lx, ly] = this.toLocal(g.h, sx + (kb ? rnd(-30, 30) : 0), sy + (kb ? rnd(-30, 30) : 0));
         const fo = S.foam[g.h];
-        if (fo.length < 320 || Math.random() < 0.3) {
-          fo.push({ x: lx + rnd(-7, 7), y: ly + rnd(-7, 7), r: rnd(4, 10) * (this.prefs.mode === 'lit' ? 1.2 : 1), b: S.t });
-          if (fo.length > 320) fo.shift();
+        if (Math.random() < 0.6) {
+          fo.push({ x: lx + rnd(-8, 8), y: ly + rnd(-8, 8), r: rnd(4, 10) * (this.prefs.mode === 'lit' ? 1.2 : 1), b: S.t });
+          while (fo.length > 140 || (fo.length && S.t - fo[0].b > FOAM_LIFE)) fo.shift();
         }
         if (Math.random() < (this.chorus ? 0.5 : 0.22)) this.bubble(sx, sy, this.chorus);
       } else {
@@ -1074,19 +1075,18 @@ class ScrubSquad extends HTMLElement {
     if (!fo.length) return;
     const c = this.ctx; const now = this.S.t;
     c.save(); this.handXf(c, h); c.clip(UNION);
-    c.fillStyle = '#ffffff';
+    // suds are see-through bubbles (a ring and a shine, barely any fill) that fade within a few seconds:
+    // the skin under them always shows its own colour
+    c.lineWidth = 1.6; c.strokeStyle = '#ffffff'; c.fillStyle = '#ffffff';
     for (const f of fo) {
       const age = now - f.b;
-      c.globalAlpha = clamp(1 - age / 16, 0.4, 0.92) * Math.min(1, age * 8 + 0.3);
+      const a = clamp(1 - age / FOAM_LIFE, 0, 1) * Math.min(1, age * 8 + 0.3);
+      if (a <= 0) continue;
       const r = f.r * Math.min(1, 0.4 + age * 6);
-      c.beginPath(); c.arc(f.x, f.y, r, 0, TAU); c.fill();
+      c.globalAlpha = a * 0.12; c.beginPath(); c.arc(f.x, f.y, r, 0, TAU); c.fill();
+      c.globalAlpha = a * 0.75; c.stroke();
+      c.globalAlpha = a * 0.9; c.beginPath(); c.arc(f.x - r * 0.35, f.y - r * 0.35, Math.max(0.8, r * 0.18), 0, TAU); c.fill();
     }
-    // a pale blue edge and a shine dot on the newest suds
-    c.globalAlpha = 0.6; c.strokeStyle = '#a6dff2'; c.lineWidth = 1;
-    const from = Math.max(0, fo.length - 90);
-    c.beginPath();
-    for (let i = from; i < fo.length; i++) { const f = fo[i]; c.moveTo(f.x + f.r * 0.9, f.y); c.arc(f.x, f.y, f.r * 0.9, 0, TAU); }
-    c.stroke();
     c.restore();
   }
   drawFocus() {
@@ -1277,6 +1277,18 @@ class ScrubSquad extends HTMLElement {
   locate(x, y) {
     const p = this.S.ptr;
     p.h = -1; p.z = -1; p.g = -1;
+    // a finger on a germ scrubs that germ's zone, even where the germ overlaps the zone next door
+    if (this.S.phase === 'play') {
+      let best = null; let bd = Infinity;
+      for (const o of this.S.germs) {
+        if (o.st === 'pop' || o.g < 0) continue;
+        const t = this.L.hands[o.h];
+        const [sx, sy] = this.toScreen(o.h, o.x, o.y);
+        const d = Math.hypot(sx - x, sy - y);
+        if (d < MODES[this.prefs.mode].germR * t.s * 1.35 && d < bd) { bd = d; best = o; }
+      }
+      if (best) { p.h = best.h; p.g = best.g; p.z = this.S.groups[best.g].subs[0]; return; }
+    }
     for (let h = 0; h < 2; h++) {
       const [lx, ly] = this.toLocal(h, x, y);
       const z = hitZone(lx, ly);
